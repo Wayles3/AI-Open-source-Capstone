@@ -1,6 +1,6 @@
-# Contribution [1]: [Dashboard header says "1 Applications" instead of "1 Application"]
+# Contribution [7]: [Dashboard header says "1 Applications" instead of "1 Application"]
 
-**Contribution Number:** [1]  
+**Contribution Number:** [7]  
 **Student:** [Adewale Abodunde]  
 **Issue:** [https://github.com/shanker-codepath/offer-tracker/issues/7]  
 **Status:** [Phase I] [Completed]
