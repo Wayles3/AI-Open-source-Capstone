@@ -4,7 +4,7 @@
 **Student:** [Adewale Abodunde]  
 **Issue:** [https://github.com/shanker-codepath/offer-tracker/issues/7]  
 **Status:** [Phase I] [Completed]
-**Status:** [Phase II] [Completed]
+**Status:** [Phase II] [In Progress]
 
 
 ---
