@@ -1,9 +1,12 @@
-# Contribution [#]: [Issue Title]
+# Contribution [1]: [Dashboard header says "1 Applications" instead of "1 Application"
+ ]
 
 **Contribution Number:** [1]  
 **Student:** [Adewale Abodunde]  
 **Issue:** [https://github.com/shanker-codepath/offer-tracker/issues/7]  
-**Status:** [Phase I] [In Progress]
+**Status:** [Phase I] [Completed]
+**Status:** [Phase II] [Completed]
+
 
 ---
 
