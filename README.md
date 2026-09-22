@@ -113,50 +113,58 @@ Manual UI Verification: Tested the home page locally with 0, 1, and 2+ applicati
 
 ### Unit Tests
 
-- [ ] Test case 1: [Description]
-- [ ] Test case 2: [Description]
-- [ ] Test case 3: [Description]
+- [ ] Test case 1: [Single Application (Singular): Verifies the dashboard header renders "1 Application" when stats.totalCount equals 1.]
+- [ ] Test case 2: [Multiple Applications (Plural): Verifies the dashboard header renders "[Count] Applications" when stats.totalCount is greater than 1 (e.g., "2 Applications").]
+- [ ] Test case 3: [Zero Applications (Plural/Default): Verifies the dashboard header renders "0 Applications" when stats.totalCount is 0.]
 
 ### Integration Tests
 
-- [ ] Integration scenario 1
-- [ ] Integration scenario 2
+- [ Full API & UI Workflow: Create an application via POST /api/applications and delete it via DELETE /api/applications/[id], verifying that stats.totalCount in src/app/page.tsx updates dynamically and switches the header label between singular and plural forms.] Integration scenario 1
+- [ Database & Page Render: Query the SQLite database via Prisma with 0, 1, and 2+ seeded application records, ensuring GET / returns a 200 status and correctly renders "0 Applications", "1 Application", or "2 Applications".] Integration scenario 2
 
 ### Manual Testing
 
 [What you tested manually and results]
 
----
+Tested Scenario 1 (Singular Count = 1): Deleted test entries until exactly 1 application remained in dev.db. Loaded http://localhost:3000/ and verified the header correctly displayed "1 Application".
+Tested Scenario 2 (Plural Count > 1): Created a new application via /applications/new. Navigated back to the dashboard (POST /api/applications succeeded) and confirmed the header updated to "2 Applications".
+Tested Scenario 3 (Zero Count = 0): Removed all applications from the database via DELETE /api/applications/[id]. Verified the dashboard header defaulted to "0 Applications".
 
 ## Implementation Notes
 
-### Week [X] Progress
+### Week [1] Progress
 
 [What you built this week, challenges faced, decisions made]
+Setup & Environment Fix: Cloned the offer-tracker repo and configured local development (Next.js 16.3.4, Prisma, SQLite). Resolved missing environment configuration by creating .env with DATABASE_URL="file:./dev.db", successfully executing prisma migrate deploy and database seeding (tsx prisma/seed.ts).
+Issue Identification & Fix: Located the pluralization bug in src/app/page.tsx line 18 where the header hardcoded "Applications" regardless of item count. Replaced static text with an inline ternary operator: {stats.totalCount === 1 ? "Application" : "Applications"}.
+Testing & Git Workflow: Executed Vitest test suite (14/14 tests passing) and performed manual browser verification across 0, 1, and 2+ application states. Resolved terminal bash quoting syntax issues, created local branch Fix-issue-Dashboard, and pushed changes to remote upstream.
 
-### Week [Y] Progress
-
+### Week [2] Progress
+PR & Documentation: Finalized UMPIRE framework documentation, filled out self-review checklists following the project's CONTRIBUTING.md guidelines, and opened a Pull Request referencing the target issue.
 [Continue documenting as you work]
 
 ### Code Changes
 
-- **Files modified:** [List]
-- **Key commits:** [Links to important commits]
-- **Approach decisions:** [Why you chose certain approaches]
+- **Files modified:** [src/app/page.tsx]
+- **Key commits:** [[Links to important commits](https://github.com/shanker-codepath/offer-tracker/commit/bd2bdaf28d4c2f703bce4f05917e9863503e69e7)]
+- **Approach decisions:** [Used a simple inline JSX ternary operator ({stats.totalCount === 1 ? "Application" : "Applications"}) directly in src/app/page.tsx rather than adding a heavy third-party pluralization library or custom helper utility. This keeps the codebase minimal, respects strict TypeScript types without introducing unnecessary abstractions, and aligns with the existing React patterns in the app.]
 
 ---
 
 ## Pull Request
 
-**PR Link:** [GitHub PR URL when submitted]
+**PR Link:** [[GitHub PR URL when submitted](https://github.com/shanker-codepath/offer-tracker/pull/25)]
 
-**PR Description:** [Draft or final PR description - much of the content above can be adapted]
+**PR Description:** [This change updates the dashboard header in src/app/page.tsx to conditionally pluralize the word "Application" based on stats.totalCount.
+It is needed because the header hardcoded "Applications" (or static "Application" text), causing grammatical errors when displaying a single item (e.g., rendering "1 Applications" instead of "1 Application"). Adding an inline ternary operator ensures the text accurately switches between singular and plural forms.
+
+
 
 **Maintainer Feedback:**
 - [Date]: [Summary of feedback received]
 - [Date]: [How you addressed it]
 
-**Status:** [Awaiting review / Iterating / Approved / Merged]
+**Status:** [Awaiting review]
 
 ---
 
@@ -164,15 +172,19 @@ Manual UI Verification: Tested the home page locally with 0, 1, and 2+ applicati
 
 ### Technical Skills Gained
 
-[What you learned technically]
+[Next.js & React Conditional Rendering: Applied inline ternary logic in server components for dynamic UI pluralization.
+Database State Management: Managed Prisma/SQLite migrations and seed scripts to test edge cases (0, 1, 2+ records).
+Git CLI String Escaping: Handled shell escaping issues when committing strings with nested double quotes.]
 
 ### Challenges Overcome
 
-[What was hard and how you solved it]
+[Git Commit Bash Error: Fixed pathspec errors caused by nested double quotes by wrapping commit messages in single quotes (git commit -m '...').
+Missing Upstream Branch: Resolved git push failures by linking tracking with git push -u origin Fix-issue-Dashboard.]
 
 ### What I'd Do Differently Next Time
 
-[Reflection on your process]
+[Automate UI Tests: Write a component test using React Testing Library rather than relying solely on manual UI checks.
+Extract Utility Helper: Create a reusable pluralize() utility if the app grows, rather than using inline ternaries across multiple pages.]
 
 ---
 
