@@ -5,6 +5,8 @@
 **Issue:** [https://github.com/shanker-codepath/offer-tracker/issues/7]  
 **Status:** [Phase I] [Completed]
 **Status:** [Phase II] [Completed]
+**Status:** [Phase III] [Completed]
+**Status:** [Phase IV] [Completed]
 
 ---
 
